@@ -1,0 +1,108 @@
+<!-- ========================= -->
+<!-- FILE: login.html -->
+<!-- ========================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURDRIP Login</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
+
+.login-box{
+    background:#1a1a1a;
+    padding:40px;
+    width:320px;
+    border-radius:20px;
+    border:1px solid orange;
+}
+
+h1{
+    color:orange;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:10px;
+    background:#2a2a2a;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:orange;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>NURDRIP</h1>
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+</div>
+
+<script>
+
+function login(){
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    /* SIMPLE LOGIN */
+
+    if(email === "sales@nurdrip.co.za" && password === "nurd2273"){
+
+        window.location.href = "index.html";
+
+    }
+
+    else if(email === "sales@nurdrip.co.za" && password === "nurd2273"){
+
+        window.location.href = "index.html";
+
+    }
+
+    else{
+
+        alert("Invalid Login");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NURDRIP Agent Dashboard</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURDRIP Agent Dashboard</title>
+
+<style>
+
+.documents-section{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
+}
+
+.documents-section button{
+    background:black;
+    color:white;
+    border:none;
+    padding:14px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.documents-section button:hover{
+    background:#ff6600;
+    transform:scale(1.05);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#000;
+    padding:20px;
+    border-right:2px solid orange;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:orange;
+    margin-bottom:40px;
+}
+
+.menu button{
+    width:100%;
+    padding:15px;
+    margin-bottom:12px;
+    background:#1a1a1a;
+    border:none;
+    color:white;
+    text-align:left;
+    cursor:pointer;
+    border-radius:10px;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.menu button:hover{
+    background:orange;
+    color:black;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    padding:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar h1{
+    color:orange;
+}
+
+.agent{
+    background:#1a1a1a;
+    padding:10px 20px;
+    border-radius:10px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #333;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:orange;
+}
+
+.card h2{
+    color:orange;
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.card p{
+    color:#ccc;
+    margin-bottom:20px;
+}
+
+.card button{
+    background:orange;
+    color:black;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2a2a2a;
+    color:white;
+}
+
+textarea{
+    resize:none;
+    height:120px;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:800px){
+
+.container{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+    border-right:none;
+    border-bottom:2px solid orange;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">NURDRIP</div>
+
+        <div class="menu">
+            <button onclick="showSection('dashboard')">Dashboard</button>
+            <button onclick="showSection('documents')">Documents</button>
+            <button onclick="showSection('tickets')">Support Tickets</button>
+        </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="topbar">
+            <h1>Agent Dashboard</h1>
+            <div class="agent">Welcome Agent</div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="section">
+
+            <div class="cards">
+
+                <div class="card">
+                    <h2>Price Changes</h2>
+                    <p>Access updated pricing documents.</p>
+                    <button onclick="downloadFile('price')">
+                        Open
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2>Banking</h2>
+                    <p>View banking details and information.</p>
+                    <button onclick="downloadFile('banking')">
+                        Open
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2>Weekly Statements</h2>
+                    <p>Download weekly statement reports.</p>
+                    <button onclick="downloadFile('weekly')">
+                        Open
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2>Monthly Statements</h2>
+                    <p>Access monthly financial statements.</p>
+                    <button onclick="downloadFile('monthly')">
+                        Open
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div id="documents" class="section hidden">
+
+            <h2>Company Documents</h2>
+
+            <div class="documents-section">
+
+                <button onclick="downloadFile('price')">
+                    PRICE CHANGE
+                </button>
+
+                <button onclick="downloadFile('banking')">
+                    BANKING
+                </button>
+
+                <button onclick="downloadFile('weekly')">
+                    WEEKLY STATEMENTS
+                </button>
+
+                <button onclick="downloadFile('monthly')">
+                    MONTHLY STATEMENTS
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- TICKETS -->
+        <div id="tickets" class="section hidden">
+
+            <div class="card">
+
+                <h2>Submit Support Ticket</h2>
+
+                <div class="form-group">
+                    <input type="text" placeholder="Subject">
+                </div>
+
+                <div class="form-group">
+                    <textarea id="ticketMessage" placeholder="Describe your issue..."></textarea>
+                </div>
+
+                <button onclick="submitTicket()">
+                    Submit Ticket
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showSection(sectionId){
+
+    let sections = document.querySelectorAll('.section');
+
+    sections.forEach(section=>{
+        section.classList.add('hidden');
+    });
+
+    document.getElementById(sectionId).classList.remove('hidden');
+}
+
+
+// FILE DOWNLOAD SYSTEM
+function downloadFile(type){
+
+    let fileUrl = "";
+
+    switch(type){
+
+        case "price":
+            fileUrl = "https://files.fm/u/67w2zaaxnv";
+            break;
+
+        case "banking":
+            fileUrl = "https://files.fm/u/8fgmc8hg9x";
+            break;
+
+        case "weekly":
+            fileUrl = "https://files.fm/u/nrxey5n599";
+            break;
+
+        case "monthly":
+            fileUrl = "https://files.fm/u/kp4z3gv645";
+            break;
+
+        default:
+            alert("File not found");
+            return;
+    }
+
+    window.open(fileUrl, "_blank");
+}
+
+
+// TICKET SYSTEM
+function submitTicket(){
+
+    let ticketMessage = document.getElementById("ticketMessage").value;
+
+    if(ticketMessage === ""){
+        alert("Please enter ticket message");
+        return;
+    }
+
+    alert("Ticket Submitted Successfully");
+
+    document.getElementById("ticketMessage").value = "";
+
+}
+
+</script>
+
+</body>
+</html>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">NURDRIP</div>
+
+    <div class="documents-section">
+
+    <button onclick="downloadFile('price')">
+        PRICE CHANGE
+    </button>
+
+    <button onclick="downloadFile('banking')">
+        BANKING
+    </button>
+
+    <button onclick="downloadFile('weekly')">
+        WEEKLY STATEMENTS
+    </button>
+
+    <button onclick="downloadFile('monthly')">
+        MONTHLY STATEMENTS
+    </button>
+
+</div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="topbar">
+            <h1>Agent Dashboard</h1>
+            <div class="agent">SALES DEPT</div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="section">
+
+            <div class="cards">
+
+                <div class="card">
+                    <h2>Weekly Statements</h2>
+                    <p>Download your weekly commission statement.</p>
+                    <button onclick="downloadFile('Weekly Statement')">Download</button>
+                </div>
+
+                <div class="card">
+                    <h2>Monthly Statements</h2>
+                    <p>Access your monthly report.</p>
+                    <button onclick="downloadFile('Monthly Statement')">Download</button>
+                </div>
+
+                <div class="card">
+                    <h2>Price Changes</h2>
+                    <p>Latest updated prices from NURDRIP.</p>
+                    <button onclick="showSection('price')">View</button>
+                </div>
+
+                <div class="card">
+                    <h2>Banking Upload</h2>
+                    <p>Upload POP or banking details.</p>
+                    <button onclick="showSection('banking')">Upload</button>
+                </div>
+
+                <div class="card">
+                    <h2>Support Ticket</h2>
+                    <p>Need help? Submit a support ticket.</p>
+                    <button onclick="showSection('ticket')">Request</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- WEEKLY -->
+        <div id="weekly" class="section hidden">
+            <div class="card">
+                <h2>Weekly Statement</h2>
+                <p>Your latest weekly statement is ready.</p>
+                <button onclick="downloadFile('Weekly Statement')">
+                    Download Weekly PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- MONTHLY -->
+        <div id="monthly" class="section hidden">
+            <div class="card">
+                <h2>Monthly Statement</h2>
+                <p>Your monthly report is available.</p>
+                <button onclick="downloadFile('Monthly Statement')">
+                    Download Monthly PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- PRICE -->
+        <div id="price" class="section hidden">
+
+            <div class="card">
+                <h2>Latest Price Changes</h2>
+
+                <p><strong>NO PRICE CHANGE</strong><br>
+                Old Price: <br>
+                New Price: </p>
+
+                <hr style="margin:20px 0; border-color:#333;">
+
+                <p><strong>NO PRICE CHANGE</strong><br>
+                Old Price: <br>
+                New Price: </p>
+
+            </div>
+
+        </div>
+
+        <!-- BANKING -->
+        <div id="banking" class="section hidden">
+
+            <div class="card">
+
+                <h2>Upload Banking Details</h2>
+
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" placeholder="Agent Code">
+                </div>
+
+                <div class="form-group">
+                    <input type="file">
+                </div>
+
+                <button onclick="alert('Banking Uploaded Successfully')">
+                    Upload
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- TICKET -->
+        <div id="ticket" class="section hidden">
+
+            <div class="card">
+
+                <h2>Request Support Ticket</h2>
+
+                <div class="form-group">
+                    <input type="text" placeholder="Ticket Subject">
+                </div>
+
+                <div class="form-group">
+                    <textarea placeholder="Describe your issue"></textarea>
+                </div>
+
+                <button onclick="submitTicket()">
+                    Submit Ticket
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showSection(sectionId){
+
+    let sections = document.querySelectorAll('.section');
+
+    sections.forEach(section=>{
+        section.classList.add('hidden');
+    });
+
+    document.getElementById(sectionId).classList.remove('hidden');
+}
+
+
+// FILE DOWNLOAD SYSTEM
+function downloadFile(type){
+
+    let fileUrl = "";
+
+    switch(type){
+
+        case "price":
+            fileUrl = "https://files.fm/u/67w2zaaxnv";
+            break;
+
+        case "banking":
+            fileUrl = "https://files.fm/u/8fgmc8hg9x";
+            break;
+
+        case "weekly":
+            fileUrl = "https://files.fm/u/nrxey5n599";
+            break;
+
+        case "monthly":
+            fileUrl = "https://files.fm/u/kp4z3gv645";
+            break;
+
+        default:
+            alert("File not found");
+            return;
+    }
+
+    window.open(fileUrl, "_blank");
+}
+
+
+// TICKET SYSTEM
+function submitTicket(){
+
+    let ticketMessage = document.getElementById("ticketMessage").value;
+
+    if(ticketMessage === ""){
+        alert("Please enter ticket message");
+        return;
+    }
+
+    alert("Ticket Submitted Successfully");
+
+    document.getElementById("ticketMessage").value = "";
+
+}
+
+</script>
+</body>
+</html>ok 
